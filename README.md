@@ -147,6 +147,10 @@ Upsert logic:
 - Updates existing records with enriched attributes (e.g current_employee_estimate)
 - Inserts new corporate entities
 - Ensures ACID-compliant, transactional updates
+- **Sample File**: [`iceberg-table-sample.csv`](https://github.com/Pahulpreet86/ContextQ-Data-AI-Engineering-CI-CD-Pipeline/blob/master/iceberg-table-sample.csv)
+- **Athena View**
+ <img width="1189" height="231" alt="Blank diagram (9)" src="https://github.com/Pahulpreet86/ContextQ-Data-AI-Engineering-CI-CD-Pipeline/blob/master/AthenaIcbergTable.png" />
+  
 
 
 ## ML Pipeline Implementation
@@ -155,7 +159,7 @@ Upsert logic:
 Data is loaded from the Gold-layer Iceberg table: `acme_datalake.corporate_registry`
 
 ### Feature Engineering
-Following features are derived using the engineer_features function from **ml_training_glue.py**
+Following features are derived using the engineer_features function from [ml_training_glue.py](https://github.com/Pahulpreet86/ContextQ-Data-AI-Engineering-CI-CD-Pipeline/blob/master/aws_glue_jobs/ml_training_glue.py)
 
 | Feature                           | Description                              |
 | --------------------------------- | ---------------------------------------- |
@@ -184,17 +188,14 @@ Linear Regression model is trained to predict normalized company revenue:
 The dataset is split for model evaluation: **80% Training, 20% Testing**
 
 ### Model Tracking & Registration
-Training outputs are persisted for reproducibility:
-
-Saved model artifacts
-
-Stored feature datasets
-
-Logged metrics (MAE, train/test size)
-
-These artifacts enable lightweight model versioning and performance monitoring.
+- Training outputs are persisted for reproducibility
+- Saved model artifacts as S3 objects 
+- Stored feature datasets as S3 objects 
+- Logged metrics (MAE, train/test size) as S3 objects.  [Sample Model Report](https://github.com/Pahulpreet86/ContextQ-Data-AI-Engineering-CI-CD-Pipeline/blob/master/mlmodelreports/20260126.json)
+- These artifacts enable lightweight model versioning and performance monitoring.
 
 
+## AWS Glue Job Parameters & Configuration Guide: [Link](https://github.com/Pahulpreet86/ContextQ-Data-AI-Engineering-CI-CD-Pipeline/blob/master/aws_glue_jobs/README.md)
 
 ## CI/CD and Testing
 
