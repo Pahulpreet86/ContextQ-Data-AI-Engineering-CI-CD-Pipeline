@@ -1,5 +1,7 @@
-# silver_layer_transformation_glue.py
-## Required Job Parameters
+# AWS Glue Job Parameters & Configuration Guide
+
+## silver_layer_transformation_glue.py
+### Required Job Parameters
 The following parameters must be provided when running the Glue job.
 | Parameter                 | Description                                         | Value                                                     |
 | ------------------------- | --------------------------------------------------- | --------------------------------------------------------- |
@@ -10,8 +12,8 @@ The following parameters must be provided when running the Glue job.
 | `--SILVER_TECH_PATH`      | S3 path for processed tech data (Silver layer)      | `s3://acme-dev-datalake/silver/tech_companies/`           |
 
 
-# graphframe_corporate_id_glue.py
-## Required Job Parameters
+## graphframe_corporate_id_glue.py
+### Required Job Parameters
 The following parameters must be provided when running the Glue job.
 | Parameter                     | Description                                                               | Value                                                                |
 | ----------------------------- | ------------------------------------------------------------------------- | -------------------------------------------------------------------- |
@@ -22,8 +24,8 @@ The following parameters must be provided when running the Glue job.
 | `--CHECKPOINT_PATH`           | S3 path for GraphFrames checkpointing (required for connected components) | `s3://acme-dev-datalake/checkpoints/graphframes/corporate_registry/` |
 
 
-# iceberg-upsert.py
-## Required Job Parameters
+## iceberg-upsert.py
+### Required Job Parameters
 The following parameters must be provided when running the Glue job.
 | Parameter            | Description                                                 | Value                       |
 | -------------------- | ----------------------------------------------------------- | ----------------------------------- |
@@ -36,8 +38,8 @@ The following parameters must be provided when running the Glue job.
 
 
 
-# iceberg-create.py
-## Required Job Parameters
+## iceberg-create.py
+### Required Job Parameters
 The following parameters must be provided when running the Glue job.
 | Parameter            | Description                                                            | Value                                        |
 | -------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------- |
@@ -48,8 +50,8 @@ The following parameters must be provided when running the Glue job.
 | `--ICEBERG_LOCATION` | Physical S3 location of the specific Iceberg table (optional override) | `s3://acme-dev-datalake/iceberg/corporate_registry/` |
 
 
-# ml_training_glue.py
-## Required Job Parameters
+## ml_training_glue.py
+### Required Job Parameters
 The following parameters must be provided when running the Glue job.
 | Parameter                     | Description                                               | Value                                                  |
 | ----------------------------- | --------------------------------------------------------- | -------------------------------------------------------------- |
@@ -57,3 +59,16 @@ The following parameters must be provided when running the Glue job.
 | `--OUTPUT_DATASET_PATH`       | S3 path for processed / feature-engineered dataset output | `s3://acme-dev-datalake/golden/ml/features/`                   |
 | `--MODEL_OUTPUT_PATH`         | S3 path to store trained model artifacts                  | `s3://acme-dev-datalake/golden/ml/models/corporate_registry/`  |
 | `--MODEL_REPORT_PATH`         | S3 path to store model evaluation reports and metrics     | `s3://acme-dev-datalake/golden/ml/reports/corporate_registry/` |
+
+### Required Spark Configuration (Glue 5.0)
+
+For all Iceberg jobs, the following Spark parameters must be configured in the AWS Glue job settings:
+
+--conf spark.sql.extensions=org.apache.iceberg.spark.extensions.IcebergSparkSessionExtensions
+
+--datalake-formats iceberg
+
+Iceberg Scripts
+- iceberg-create.py
+- iceberg-upsert.py
+- ml_training_glue.py
