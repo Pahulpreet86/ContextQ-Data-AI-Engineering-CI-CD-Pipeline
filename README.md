@@ -11,7 +11,7 @@
   - [Feature Engineering](#feature-engineering)
   - [Model Training](#model-training)
   - [Model Tracking & Registration](#model-tracking--registration)
-- [AWS Glue Configuration](#aws-glue-job-parameters--configuration-guide)
+- [AWS Glue Configuration](#aws-glue-job-parameters--configuration-guide-link)
 - [CI/CD and Testing](#cicd-and-testing)
   - [Continuous Integration](#continuous-integration-ci)
   - [Unit Tests](#unit-tests)
