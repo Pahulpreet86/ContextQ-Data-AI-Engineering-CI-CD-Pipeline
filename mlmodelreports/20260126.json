@@ -1,0 +1,8 @@
+{
+  "model": "LinearRegression",
+  "train_rows": 358,
+  "test_rows": 92,
+  "metrics": {
+    "mae": 0.9249497484726027
+  }
+}

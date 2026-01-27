@@ -1,0 +1,39 @@
+version: 0.2
+
+env:
+  secrets-manager:
+    STATE_MACHINE_ARN: "trigger_pipeline:STATE_MACHINE_ARN"
+    S3_BUCKET: "trigger_pipeline:S3_BUCKET"
+    GLUE_PREFIX: "trigger_pipeline:GLUE_PREFIX"
+
+phases:
+
+  install:
+    runtime-versions:
+      python: 3.11
+    commands:
+      - pip install --upgrade pip
+      - pip install -r requirements.txt
+      - pip install pytest
+
+  pre_build:
+    commands:
+      - export PYTHONPATH=$PYTHONPATH:$(pwd)
+      - echo "PYTHONPATH=$PYTHONPATH"    
+      - pytest tests/
+
+  build:
+    commands:
+      - aws s3 sync aws_glue_jobs/ s3://$S3_BUCKET/$GLUE_PREFIX/
+
+  post_build:
+    commands:
+      - echo "Starting Step Function..."
+      - echo "STATE_MACHINE_ARN=$STATE_MACHINE_ARN"
+
+      - |
+        aws stepfunctions start-execution \
+          --state-machine-arn "$STATE_MACHINE_ARN" \
+          --name "run-$(date +%s)" \
+          --input '{}'
+
