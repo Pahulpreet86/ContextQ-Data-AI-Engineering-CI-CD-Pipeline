@@ -242,7 +242,7 @@ If all tests pass, Glue scripts are synced to Amazon S3 and the Step Functions w
 
 #### Adverse media news Architecture
 ##### Serverless Adverse Media Processing Pipeline
-<img width="800" height="550" alt="Blank diagram (8)" src="https://github.com/user-attachments/assets/2de7cb1d-8e84-40ae-b61f-8892ce0623dc" />
+<img width="800" height="550" alt="Blank diagram (8)" src="https://github.com/Pahulpreet86/ContextQ-Data-AI-Engineering-CI-CD-Pipeline/blob/master/Serverless%20Adverse%20Media%20Processing%20Pipeline.png" />
 
 ##### High-Level Flow
 1. Company metadata files (containing `corporate_id` and `company_name`) are uploaded to Amazon S3.
@@ -253,8 +253,10 @@ If all tests pass, Glue scripts are synced to Amazon S3 and the Step Functions w
 6. The processing Lambda uses OpenAI LLM to retrieve and analyze adverse news.
 7. The enriched results are stored in the destination S3 bucket for downstream merging and analytics.
 
+###### AWS Lambda Function Implementation: [get_adverse_news](https://github.com/Pahulpreet86/ContextQ-Data-AI-Engineering-CI-CD-Pipeline/tree/master/get_adverse_news)
+
 ##### Adverse Media Iceberg Upsert Pipeline
-<img width="1189" height="231" alt="Blank diagram (9)" src="https://github.com/user-attachments/assets/b518918b-106f-4b95-9a77-fe98d2183914" />
+<img width="1189" height="231" alt="Blank diagram (9)" src="https://github.com/Pahulpreet86/ContextQ-Data-AI-Engineering-CI-CD-Pipeline/blob/master/Adverse%20Media%20Iceberg%20Upsert%20Pipeline.png" />
 
 ##### High-Level Flow
 1. AWS Glue is triggered on a scheduled basis or by an event.
@@ -266,7 +268,7 @@ If all tests pass, Glue scripts are synced to Amazon S3 and the Step Functions w
 - Instead of running LLM inference directly inside Spark (which is inefficient and costly at scale), we can using the LLM for entity resolution only on ambiguous records, rather than across the entire dataset. Specifically, LLM-based resolution is applied to instances where the fuzzy matching score is greater than or equal to 0.60 and less than 0.80.
 - For these cases, only essential attributes such as the company name from both datasets, along with industry and country information are passed to the LLM in batch mode. The model is then prompted to determine whether the two records refer to the same corporation.
 
-<img width="1178" height="306" alt="Blank diagram (10)" src="https://github.com/user-attachments/assets/55f01cbb-34d0-4f9d-9b8e-5ff44c222176" />
+<img width="1178" height="306" alt="Blank diagram (10)" src="https://github.com/Pahulpreet86/ContextQ-Data-AI-Engineering-CI-CD-Pipeline/blob/master/Batch%20Entity%20Resolution.png" />
 
-
+###### AWS Lambda Function Implementation: [batch_entity_resolution](https://github.com/Pahulpreet86/ContextQ-Data-AI-Engineering-CI-CD-Pipeline/tree/master/batch_entity_resolution)
 
