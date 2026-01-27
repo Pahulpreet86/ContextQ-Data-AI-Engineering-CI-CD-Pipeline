@@ -6,7 +6,7 @@
   - [Data Architecture & Infrastructure](#data-architecture--infrastructure)
   - [Data Standardization](#data-standardization)
   - [Entity Resolution & Deduplication](#entity-resolution--deduplication)
-- [Iceberg Upsert & Table Management](#iceberg-upsert--table-management)
+  - [Iceberg Upsert & Table Management](#iceberg-upsert--table-management)
 - [ML Pipeline Implementation](#ml-pipeline-implementation)
   - [Feature Engineering](#feature-engineering)
   - [Model Training](#model-training)
